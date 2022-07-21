@@ -1,0 +1,63 @@
+﻿@model IEnumerable<BikeShop.Models.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Customers</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                UserName
+            </th>
+            <th>
+                Password
+            </th>
+            <th>
+                FullName
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Phone
+            </th>
+            
+            <th>
+                More
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.UserName
+            </td>
+            <td>
+                @(new String('*', item.Password.Length))
+            </td>
+            <td>
+                @item.FullName
+            </td>
+            <td>
+                @item.Address
+            </td>
+            <td>
+                @item.Phone
+            </td>
+            
+            <td>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.UserName">Edit</a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.UserName">Details</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.UserName">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,71 @@
+﻿@{
+	ViewData["Title"] = "Cart";
+}
+@model Dictionary<Product, int>;
+<h1>Cart</h1>
+<hr />
+
+<table class="table table-bordered text-center">
+	<thead class="bg-info text-white">
+		<tr>
+			<th>ProductId</th>
+			<th>ProductName</th>
+			<th>Image</th>
+			<th>UnitPrice</th>
+			<th>Quantity</th>
+			<th>Cost</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			double totalCost = 0;
+			foreach(var cartItem in Model)
+			{
+				Product product = cartItem.Key;
+				int quantity = cartItem.Value;
+				double cost = quantity * product.UnitPrice;
+				totalCost += cost;
+						<tr>
+							<td>@product.Id</td>
+							<td>@product.Name</td>
+							<td>
+								<img class="rounded" src="/@product.ImageURL" style="width:60px; height:60px; object-fit: cover;"/>
+							</td>
+							<td>$@(product.UnitPrice)</td>
+							<td>
+								<form class="d-flex justify-content-center" method="post" asp-action="UpdateProductToCart">
+									<input type="hidden" name="proId" value="@product.Id"/>
+									<input class="form-control w-50" name="quantity" type="number" min="0" value="@quantity"/>
+									<button class="d-flex align-items-center btn btn-success mx-2" type="submit">
+										<ion-icon name="arrow-up-circle-outline"></ion-icon>
+									</button>
+								</form>
+							</td>
+							<td>$@(cost)</td>
+							<td>
+								<form class="d-flex justify-content-center" method="post" asp-action="RemoveProductFromCart">
+									<input type="hidden" name="proId" value="@product.Id"/>
+									<button class="d-flex align-items-center btn btn-danger" type="submit">
+										Remove
+									</button>
+								</form>
+							</td>
+						</tr>
+			}
+		}
+	</tbody>
+	<tfoot>
+
+		<tr class="text-right">
+			<td colspan="7">
+				<strong>Total Cost: $<i>@totalCost</i></strong>
+			</td>
+		</tr>
+
+	</tfoot>
+</table>
+
+<div class="text-right">
+	<a class="btn btn-success" asp-controller="Order" asp-action="Create">Xác nhận mua hàng</a>
+</div>

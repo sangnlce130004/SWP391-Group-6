@@ -1,0 +1,72 @@
+﻿@model IEnumerable<BikeShop.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Order Management</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                OrderId
+            </th>
+            <th>
+                Customer
+            </th>
+            <th>
+                FullName
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                TotalCost
+            </th>
+            <th>
+                OrderDate
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.Id
+            </td>
+            <td>
+                @item.UserName
+            </td>
+            <td>
+                @item.FullName
+            </td>
+            <td>
+                @item.Address
+            </td>
+            <td>
+                $@item.TotalCost
+            </td>
+            <td>
+                @item.OrderDate.ToShortDateString()
+            </td>
+            <td>
+                <span class="badge badge-@(item.IsComplete ? "success" : "warning text-white")">
+                    @(item.IsComplete ? "Complete" : "Processing")
+                </span>
+            </td>
+            <td>
+                <div class="d-flex flex-column" style="gap: 5px;">
+                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Change Status</a>
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

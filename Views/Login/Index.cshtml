@@ -1,0 +1,31 @@
+﻿@{
+	ViewData["Title"] = "Login";
+}
+
+
+<h2 class="text-primary text-center">Login with your account</h2>
+<hr />
+
+<div class="d-flex justify-content-center align-items-center">
+	<div class="card" style="width: 400px">
+		@if(ViewBag.ErrorMessage != null)
+		{
+			<div class="card-header text-danger">@ViewBag.ErrorMessage</div>
+		}
+		<form method="post" class="card-body">
+
+			<p>
+				<label for="username">UserName:</label>
+				<input class="form-control" type="text" id="username" name="username" placeholder="Enter username"/>
+			</p>
+			<p>
+				<label for="password">Password:</label>
+				<input class="form-control" type="password" id="password" name="password" placeholder="Enter password"/>
+			</p>
+			<p>
+				<button type="submit" class="btn btn-primary">Login</button>
+			</p>
+		</form>
+	</div>
+
+</div>

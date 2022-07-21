@@ -1,0 +1,32 @@
+﻿@{
+	ViewData["Title"] = "History";
+}
+
+@model List<Order>;
+
+<h1>Order History</h1>
+<hr />
+
+<table class="table table-bordered text-center">
+	<thead>
+		<tr>
+			<th>Order Id</th>
+			<th>Order Date</th>
+			<th>Total Payment</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var order in Model)
+		{
+			<tr>
+				<td>@order.Id</td>
+				<td>@order.OrderDate.ToShortDateString()</td>
+				<td>$@(order.TotalCost)</td>
+				<td>
+					<a class="btn btn-primary" asp-action="Details" asp-route-id="@order.Id">View Details</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
